@@ -16,9 +16,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   dynamic amount = 0.00, tip = 0.00, person = 1, tempTip = 0.00, tempAmount = 0.0;
-  double total = 0.00;
+  double total = 0.00, percent = 0.00;
 
-  double percent = 0;
 
   void amountUpdate() {
     setState(() {
@@ -57,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -73,21 +73,29 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
+
           SizedBox(
             height: keyboardOpen ? 40 : 100,
           ),
+
+
+          /* Container where Total per Person amount is shown */
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
+
               decoration: BoxDecoration(
                 color: Colors.indigo[50],
                 borderRadius: BorderRadius.circular(20),
               ),
+
               height: 200,
               width: MediaQuery.of(context).size.width,
+
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
@@ -98,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+
                   Text(
                     '\$$total',
                     style: TextStyle(
@@ -107,11 +116,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ],
+
               ),
             ),
           ),
+
+
+          /* Container where Bill amount per Person is Calculated */
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.indigo[50]),
@@ -122,9 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    /*A TextField to let user input the .*/
                     TextField(
                       keyboardType: TextInputType.numberWithOptions(decimal: true),
                       style: TextStyle(
@@ -132,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.deepPurple,
                         fontWeight: FontWeight.w600,
                       ),
+
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(left: 10, top: 10),
                         prefixText: 'Bill Amount : \$ ',
@@ -140,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.deepPurple,
                         ),
                       ),
+
                       onChanged: (String value) {
                         try{
                           tempAmount = double.parse(value);
@@ -150,11 +169,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         amountUpdate();
                       },
                     ),
+
+                    /*No of Person in which Bill AMount will be splitted */
                     Padding(
-                      padding: const EdgeInsets.only(top : 30.0, left: 15.0, bottom: 20.0),
+                      padding: const EdgeInsets.only(
+                          top : 30.0,
+                          left: 15.0,
+                          bottom: 20.0
+                      ),
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+
                           Text(
                             'Split',
                             style: TextStyle(
@@ -162,19 +189,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.deepPurple,
                             ),
                           ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+
                               GestureDetector(
                                 onTap: () {
                                   decrement();
                                 },
+
                                 child: Container(
                                   padding: EdgeInsets.all(7.0),
                                   decoration: BoxDecoration(
                                     color: Colors.indigo[50],
                                     borderRadius: BorderRadius.circular(0.0),
                                   ),
+
                                   child: Text('-',
                                     style: TextStyle(
                                       fontSize: 10,
@@ -183,7 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ),
+
                               Padding(padding: EdgeInsets.only(left: 10)),
+
                               Text('$person',
                                 style: TextStyle(
                                   fontSize: 10,
@@ -191,17 +224,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: Colors.deepPurple,
                                 ),
                               ),
+
                               Padding(padding: EdgeInsets.only(left: 10)),
+
                               GestureDetector(
                                 onTap: () {
                                   increment();
                                 },
+
                                 child: Container(
                                   padding: EdgeInsets.all(7.0),
                                   decoration: BoxDecoration(
                                     color: Colors.indigo[50],
                                     borderRadius: BorderRadius.circular(0.0),
                                   ),
+
                                   child: Text('+',
                                     style: TextStyle(
                                       fontSize: 12,
@@ -215,11 +252,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(top : 30.0, left: 15.0, bottom: 20.0, right: 20),
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+
                           Text(
                               'Tip',
                               style: TextStyle(
@@ -227,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.deepPurple,
                               )
                           ),
+
                           Text(
                             '\$$tip',
                             style: TextStyle(
@@ -237,6 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+
                     Slider(
                       value: percent,
                       onChanged: (newTip) {
